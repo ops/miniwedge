@@ -1,6 +1,6 @@
-# miniwedge for VIC-20 and C64
+# Miniwedge for VIC-20 and C64
 
-miniwedge is a library for [cc65](https://cc65.github.io/) compiler suite
+Miniwedge is a library for [cc65](https://cc65.github.io/) compiler suite
 to ease the use of a Commodore disk drive.
 
 # Commands
@@ -57,8 +57,8 @@ your platform.
 
 ```
 keydef_f1:
-	; Clear screen and display directory
-	.byte 147, "$", 255
+        ; Clear screen and display directory
+        .byte 147, "$", 255
         .byte 0
 keydef_f2:
         .byte "f2"
