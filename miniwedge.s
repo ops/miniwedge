@@ -55,7 +55,6 @@
 CHRGET          = $73           ; get next char
 CHRGOT          = $79           ; get char
 INDEX           = $22           ; pointer
-STATUS          = $90           ; st
 LSTX            = $C5           ; current key
 SFDX            = $CB           ; which key
 CDBLN           = $CE           ; character under cursor
