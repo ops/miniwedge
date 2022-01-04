@@ -150,16 +150,28 @@ dirnam: cmp     #'$'
 
 
 .proc drive_status
+        ; Check that drive is present
+        lda     #$00
+        sta     STATUS
+        lda     DEVNUM
+        jsr     LISTEN
+        lda     #$6F
+        jsr     SECOND
+        jsr     UNLSN
+        lda     STATUS
+        bne     @out
+        ; Get status line
         lda     DEVNUM
         jsr     TALK
         lda     #$6F
         jsr     TKSA
-:       jsr     ACPTR
+:       lda     STATUS
+        bne     @eof
+        jsr     ACPTR
         jsr     CHROUT
-        cmp     #CH_RET
-        bne     :-
-        jsr     UNTLK
-        jmp     NEWSTT
+        jmp     :-
+@eof:   jsr     UNTLK
+@out:   jmp     NEWSTT
 .endproc
 
 
