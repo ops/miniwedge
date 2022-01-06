@@ -9,7 +9,8 @@ to ease the use of a Commodore disk drive.
 |---|---|
 |@|Display current drive error status|
 |@"CMD"|Execute a disk drive command CMD|
-|$|Display the disk directory|
+|@"$"|Display the disk directory|
+|@"$:PATTERN"|Display the disk directory of files matching PATTERN|
 
 # Using library
 
@@ -58,7 +59,7 @@ your platform.
 ```
 keydef_f1:
         ; Clear screen and display directory
-        .byte 147, "$", 255
+        .byte 147, "@",34,"$",34,255
         .byte 0
 keydef_f2:
         .byte "f2"
