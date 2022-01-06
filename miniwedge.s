@@ -3,6 +3,8 @@
 ;;;
 ;;; September 2020 ops
 ;;;
+;;; Last change January 2022
+;;;
 
         .include "cbm_kernal.inc"
 
@@ -176,14 +178,8 @@ miniwedge_gone:
 .endproc
 
 
-.proc directory
-        jsr     dodir
-        jsr     CLRCHN
-        jmp     NEWSTT
-.endproc
-
         ; Display disk directory
-.proc dodir
+.proc directory
         lda     INDEX+2
         ldy     INDEX+1
         jsr     SETNAM
@@ -229,7 +225,9 @@ miniwedge_gone:
         bne     @readline
 
 @out:   lda     #$01
-        jmp     CLOSE
+        jsr     CLOSE
+        jsr     CLRCHN
+        jmp     NEWSTT
 .endproc
 
 
