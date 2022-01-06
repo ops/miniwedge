@@ -113,8 +113,6 @@ miniwedge_gone:
         php
         cmp     #'@'
         beq     drive_cmd
-dirnam: cmp     #'$'
-        beq     directory
         plp
         jmp     GONE+3
 
@@ -128,12 +126,15 @@ dirnam: cmp     #'$'
         tay
         beq     drive_status
         sta     INDEX+2         ; store cmd length
+        ldy     #$00
+        lda     (INDEX),y
+        cmp     #'$'
+        beq     directory
         ; Send command
         lda     DEVNUM
         jsr     LISTEN
         lda     #$6F
         jsr     SECOND
-        ldy     #$00
 :       lda     (INDEX),y
         jsr     CIOUT
         iny
@@ -176,8 +177,6 @@ dirnam: cmp     #'$'
 
 
 .proc directory
-        plp
-        jsr     CHRGET
         jsr     dodir
         jsr     CLRCHN
         jmp     NEWSTT
@@ -185,10 +184,10 @@ dirnam: cmp     #'$'
 
         ; Display disk directory
 .proc dodir
-        lda     #$01
-        ldx     #<(dirnam+1)
-        ldy     #>(dirnam+1)
+        lda     INDEX+2
+        ldy     INDEX+1
         jsr     SETNAM
+        lda     #$01
         ldx     DEVNUM
         ldy     #$00
         jsr     SETLFS
